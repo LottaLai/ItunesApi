@@ -1,12 +1,10 @@
 package com.lotta.itunesapi
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationBarView
 import com.lotta.itunesapi.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,18 +16,26 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        mActivity = this
 
-        val navView: BottomNavigationView = binding.navView
+        initNavController()
+    }
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+    override fun onDestroy() {
+        super.onDestroy()
+        mActivity = null
+    }
+
+    private fun initNavController(){
+        binding.navView.apply {
+            setupWithNavController(findNavController(R.id.nav_host_fragment_activity_main))
+            labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_SELECTED
+        }
+    }
+
+    companion object{
+         var mActivity: AppCompatActivity? = null
+             private set
+
     }
 }

@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.ui.home
+package com.lotta.itunesapi.ui.favorites
 
 import android.content.Context
 import android.os.Bundle
@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.lotta.itunesapi.databinding.FragmentHomeBinding
+import com.lotta.itunesapi.databinding.FragmentFavoritesBinding
 
-class HomeFragment : Fragment() {
+class FavoritesFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private var _homeViewModel: HomeViewModel?= null
+    private var _favoritesViewModel: FavoritesViewModel?= null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        _homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        _favoritesViewModel = ViewModelProvider(requireActivity())[FavoritesViewModel::class.java]
     }
 
     private fun initObserve() {
