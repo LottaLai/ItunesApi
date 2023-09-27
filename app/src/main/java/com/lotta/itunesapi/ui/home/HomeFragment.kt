@@ -7,18 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ListAdapter
 import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
+import com.lotta.itunesapi.model.MediaAdapter
 import javax.inject.Inject
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: DaggerViewModelFactory
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var _homeViewModel: HomeViewModel? = null
+    private var _movieAdapter: MediaAdapter? = null
+    private var _musicAdapter: MediaAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,7 +48,7 @@ class HomeFragment: Fragment() {
         _homeViewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
                 .apply {
-                    fetchData(
+                    fetchAllDate(
                         term = "jack+johnson"
                     )
                 }
@@ -52,9 +56,14 @@ class HomeFragment: Fragment() {
 
     private fun initObserve() {
         _homeViewModel?.apply {
-            ebookList.observe(requireActivity()) {
-                if(!it.isNullOrEmpty()){
-
+            movieList.observe(requireActivity()) {
+                if (!it.isNullOrEmpty()) {
+                    _movieAdapter?.submitList(it)
+                }
+            }
+            musicList.observe(requireActivity()) {
+                if (!it.isNullOrEmpty()) {
+                    _musicAdapter?.submitList(it)
                 }
             }
         }
