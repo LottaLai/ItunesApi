@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.configuration
+package com.lotta.itunesapi.api
 
 import android.content.Context
 import com.android.volley.RequestQueue

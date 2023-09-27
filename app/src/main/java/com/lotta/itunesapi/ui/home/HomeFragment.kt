@@ -44,13 +44,20 @@ class HomeFragment: Fragment() {
         _homeViewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
                 .apply {
-                    getData()
+                    fetchData(
+                        term = "jack+johnson"
+                    )
                 }
-
     }
 
     private fun initObserve() {
+        _homeViewModel?.apply {
+            ebookList.observe(requireActivity()) {
+                if(!it.isNullOrEmpty()){
 
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

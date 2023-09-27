@@ -3,6 +3,7 @@ package com.lotta.itunesapi.configuration
 import android.app.Application
 import android.content.Context
 import com.android.volley.RequestQueue
+import com.lotta.itunesapi.api.VolleyRequestQueue
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
