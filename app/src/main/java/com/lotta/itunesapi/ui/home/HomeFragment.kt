@@ -7,13 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.lotta.itunesapi.configuration.ITunesApp
+import com.lotta.itunesapi.configuration.ViewModelFactory
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
+import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+class HomeFragment: Fragment() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var _homeViewModel: HomeViewModel?= null
+    private var _homeViewModel: HomeViewModel? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,7 +40,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        _homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        ITunesApp.application.appComponent.inject(this)
+        _homeViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
     }
 
     private fun initObserve() {

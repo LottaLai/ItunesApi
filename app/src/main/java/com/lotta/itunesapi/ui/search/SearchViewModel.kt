@@ -3,11 +3,10 @@ package com.lotta.itunesapi.ui.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.lotta.itunesapi.configuration.DataManager
+import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+class SearchViewModel @Inject constructor(
+    private val dataManager: DataManager
+) : ViewModel() {
 }

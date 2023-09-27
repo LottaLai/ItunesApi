@@ -5,9 +5,15 @@ import androidx.work.Configuration
 
 class ITunesApp: Application(), Configuration.Provider {
 
+    lateinit var appComponent: AppComponent
+
     override fun onCreate() {
         super.onCreate()
         application = this
+        appComponent = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(this))
+            .build()
     }
 
     override fun getWorkManagerConfiguration(): Configuration {
