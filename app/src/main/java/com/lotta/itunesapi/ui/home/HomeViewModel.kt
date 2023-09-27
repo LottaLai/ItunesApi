@@ -13,6 +13,8 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getData(){
-        volleyManager.getRequest("https://itunes.apple.com/search?term=jack+johnson&limit=25")
+        volleyManager.getRequest(
+            url = "https://itunes.apple.com/search?term=jack+johnson&limit=25",
+        )
     }
 }
