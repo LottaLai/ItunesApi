@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.lotta.itunesapi.model.FavoritesDao
 import com.lotta.itunesapi.model.MediaModel
 
 @Database(
@@ -14,6 +15,7 @@ import com.lotta.itunesapi.model.MediaModel
     exportSchema = false
 )
 abstract class DaoDatabase : RoomDatabase() {
+    abstract fun favoritesDao(): FavoritesDao
 
     companion object {
         private var INSTANCE: DaoDatabase? = null

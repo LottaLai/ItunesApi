@@ -19,7 +19,6 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideDatabase(): DaoDatabase {
-        return DaoDatabase.buildDatabase(application)
-    }
+    fun provideDatabase(): DaoDatabase = DaoDatabase.buildDatabase(application)
+
 }

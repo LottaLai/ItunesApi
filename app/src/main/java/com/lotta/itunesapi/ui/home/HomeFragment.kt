@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
-import com.lotta.itunesapi.configuration.ViewModelFactory
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
 import javax.inject.Inject
 
 class HomeFragment: Fragment() {
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: DaggerViewModelFactory
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!

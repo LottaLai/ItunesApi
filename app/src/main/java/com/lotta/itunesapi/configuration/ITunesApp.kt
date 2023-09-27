@@ -13,6 +13,7 @@ class ITunesApp: Application(), Configuration.Provider {
         appComponent = DaggerAppComponent
             .builder()
             .appModule(AppModule(this))
+
             .build()
     }
 
