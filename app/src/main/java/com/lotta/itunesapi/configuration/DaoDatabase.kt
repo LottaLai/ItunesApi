@@ -16,6 +16,7 @@ import com.lotta.itunesapi.util.DateConverter
     version = 1,
     exportSchema = false
 )
+
 @TypeConverters(DateConverter::class)
 abstract class DaoDatabase : RoomDatabase() {
     abstract fun favoritesDao(): FavoritesDao
@@ -23,22 +24,19 @@ abstract class DaoDatabase : RoomDatabase() {
     companion object {
         private var INSTANCE: DaoDatabase? = null
 
-        fun buildDatabase(context: Context): DaoDatabase {
-            if (INSTANCE == null) {
-                synchronized(DaoDatabase::class.java) {
-                    if (INSTANCE == null) {
-                        INSTANCE = Room.databaseBuilder(
-                            context.applicationContext,
-                            DaoDatabase::class.java,
-                            "ITunes.db"
-                        )
-                            .fallbackToDestructiveMigration()
-                            .allowMainThreadQueries()
-                            .build()
+        fun buildDatabase(context: Context): DaoDatabase =
+            INSTANCE ?: synchronized(DaoDatabase::class.java) {
+                INSTANCE ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    DaoDatabase::class.java,
+                    "ITunes.db"
+                )
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .build()
+                    .also {
+                        INSTANCE = it
                     }
-                }
             }
-            return INSTANCE!!
-        }
     }
 }

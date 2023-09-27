@@ -41,7 +41,12 @@ class HomeFragment: Fragment() {
 
     private fun initViewModel() {
         ITunesApp.application.appComponent.inject(this)
-        _homeViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
+        _homeViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
+                .apply {
+                    getData()
+                }
+
     }
 
     private fun initObserve() {

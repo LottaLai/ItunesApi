@@ -2,6 +2,7 @@ package com.lotta.itunesapi.configuration
 
 import android.app.Application
 import android.content.Context
+import com.android.volley.RequestQueue
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,4 +22,7 @@ class AppModule(private val application: Application) {
     @Singleton
     fun provideDatabase(): DaoDatabase = DaoDatabase.buildDatabase(application)
 
+    @Provides
+    @Singleton
+    fun provideRequestQueue(): RequestQueue = VolleyRequestQueue.buildRequestQueue(application)
 }
