@@ -1,5 +1,6 @@
 package com.lotta.itunesapi.model
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.FilterListItemBinding
 
-class MediaFilterAdapter : ListAdapter<FilterModel, MediaFilterAdapter.ViewHolder>(DiffCallback) {
+class FilterAdapter(
+    private val onButtonClickCallback: ((String) -> Unit)? = null
+    ) : ListAdapter<FilterModel, FilterAdapter.ViewHolder>(DiffCallback) {
     private lateinit var binding: FilterListItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,32 +23,37 @@ class MediaFilterAdapter : ListAdapter<FilterModel, MediaFilterAdapter.ViewHolde
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, currentList)
+        holder.bind(item)
+        holder.button.setOnClickListener{
+            if(!item.isClicked) {
+                currentList.forEach { filterModel -> filterModel.isClicked = false }
+                item.isClicked = true
+                notifyDataSetChanged()
+            }
+            onButtonClickCallback?.invoke(item.name)
+        }
     }
 
     class ViewHolder(
         private val binding: FilterListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        var isClicked = false
-        fun bind(item: FilterModel, currentList: MutableList<FilterModel>, ) {
+        val button = binding.materialButton
+        fun bind(item: FilterModel) {
             binding.apply {
-                materialButton.text = item.kind
-                isClicked = item.isClick
-
-                materialButton.setOnClickListener {
-                    currentList.forEach { _ -> isClicked = false }
-                    isClicked = true
-                }
+                materialButton.text = item.name
+                materialButton.setBackgroundColor(if(item.isClicked) Color.GREEN else Color.GRAY)
+                materialButton.isEnabled = !item.isClicked
             }
         }
     }
+
     companion object DiffCallback : DiffUtil.ItemCallback<FilterModel>() {
         override fun areItemsTheSame(oldItem: FilterModel, newItem: FilterModel): Boolean {
-            return oldItem.kind == newItem.kind
+            return oldItem.name == newItem.name
         }
 
         override fun areContentsTheSame(oldItem: FilterModel, newItem: FilterModel): Boolean {
-            return oldItem.kind == newItem.kind
+            return oldItem.name == newItem.name
         }
     }
 }

@@ -20,8 +20,10 @@ class HomeViewModel @Inject constructor(
     private val dataManager: DataManager,
     private val volleyManager: VolleyManager
 ) : ViewModel() {
+    var originList: MutableList<MediaModel> = mutableListOf()
     var songList = MutableLiveData<MutableList<MediaModel>>()
-    var filterList = MutableLiveData<MutableList<FilterModel>>()
+    var mediaFilterList = MutableLiveData<MutableList<FilterModel>>()
+    var countryFilterList = MutableLiveData<MutableList<FilterModel>>()
 
     fun fetchAllDate(
         term: String = ""
@@ -33,14 +35,26 @@ class HomeViewModel @Inject constructor(
                     media = "music",
                     limit = 20,
                     onSuccess = {
+                        originList.plusAssign(it)
                         songList.value = it
-                        val kindList = it.map { it.kind }.distinct().toMutableList()
-                        val filterL = arrayListOf<FilterModel>()
-                        filterL.add(FilterModel("ALL", true))
-                        for (x in 0 until kindList.size){
-                            filterL.add(FilterModel(kindList[x], false))
-                        }
-                        filterList.value = filterL
+
+                        val mediaTypeList = arrayListOf(FilterModel("ALL", true))
+                        it.map { model -> model.kind }
+                            .distinct()
+                            .toMutableList()
+                            .forEach { name ->
+                                mediaTypeList.add(FilterModel(name, false))
+                            }
+                        mediaFilterList.value = mediaTypeList
+
+                        val countryList = arrayListOf(FilterModel("ALL", true))
+                        it.map { model -> model.country }
+                            .distinct()
+                            .toMutableList()
+                            .forEach { name ->
+                                countryList.add(FilterModel(name, false))
+                            }
+                        countryFilterList.value = countryList
                     })
             }
             awaitAll(music)
@@ -85,5 +99,21 @@ class HomeViewModel @Inject constructor(
             }
             println("FETCH_DATA_TIME: $time milliseconds")
         }
+    }
+
+    fun filterMediaList(
+        kind: String
+    ){
+        val oldList = originList
+        val filterList = if(kind == "ALL") oldList else oldList.filter { it -> it.kind == kind }
+        songList.value = filterList.toMutableList()
+    }
+
+    fun filterCountryList(
+        country: String
+    ){
+        val oldList = originList
+        val filterList = if(country == "ALL") oldList else oldList.filter { it -> it.country == country }
+        songList.value = filterList.toMutableList()
     }
 }

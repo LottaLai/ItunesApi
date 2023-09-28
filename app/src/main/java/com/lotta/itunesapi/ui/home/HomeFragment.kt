@@ -1,12 +1,8 @@
 package com.lotta.itunesapi.ui.home
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +13,7 @@ import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
 import com.lotta.itunesapi.model.MediaAdapter
-import com.lotta.itunesapi.model.MediaFilterAdapter
+import com.lotta.itunesapi.model.FilterAdapter
 import javax.inject.Inject
 
 
@@ -29,7 +25,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private var _homeViewModel: HomeViewModel? = null
     private var _songAdapter: MediaAdapter? = null
-    private var _filterAdapter: MediaFilterAdapter? = null
+    private var _mediaFilterAdapter: FilterAdapter? = null
+    private var _countryFilterAdapter: FilterAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -73,16 +70,25 @@ class HomeFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initAdapter(){
+    private fun initAdapter() {
         _songAdapter = MediaAdapter()
-        _filterAdapter = MediaFilterAdapter()
+        _mediaFilterAdapter = FilterAdapter {
+            _homeViewModel?.filterMediaList(it)
+        }
+        _countryFilterAdapter = FilterAdapter {
+            _homeViewModel?.filterCountryList(it)
+        }
         binding.searchRecyclerView.apply {
             adapter = _songAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        binding.filterRecyclerView.apply {
-            adapter = _filterAdapter
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL,false)
+        binding.mediaFilterRecyclerView.apply {
+            adapter = _mediaFilterAdapter
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        }
+        binding.countryFilterRecyclerView.apply {
+            adapter = _countryFilterAdapter
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         }
     }
 
@@ -94,22 +100,21 @@ class HomeFragment : Fragment() {
                     fetchAllDate(
                         term = "joey+wong"
                     )
-
                 }
     }
 
     private fun initObserve() {
         _homeViewModel?.apply {
             songList.observe(requireActivity()) {
-                if (!it.isNullOrEmpty()) {
-                    _songAdapter?.submitList(it)
-                }
+                _songAdapter?.submitList(it)
             }
-            filterList.observe(requireActivity()){
-                if(!it.isNullOrEmpty()){
-                    _filterAdapter?.submitList(it)
-                }
+            mediaFilterList.observe(requireActivity()) {
+                _mediaFilterAdapter?.submitList(it)
             }
+            countryFilterList.observe(requireActivity()) {
+                _countryFilterAdapter?.submitList(it)
+            }
+
         }
     }
 
