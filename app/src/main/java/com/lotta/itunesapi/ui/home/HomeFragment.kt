@@ -105,16 +105,18 @@ class HomeFragment : Fragment() {
 
     private fun initObserve() {
         _homeViewModel?.apply {
-            songList.observe(requireActivity()) {
-                _songAdapter?.submitList(it)
+//            songList.observe(requireActivity()) {
+//                _songAdapter?.submitList(it)
+//            }
+//            mediaFilterList.observe(requireActivity()) {
+//                _mediaFilterAdapter?.submitList(it)
+//            }
+//            countryFilterList.observe(requireActivity()) {
+//                _countryFilterAdapter?.submitList(it)
+//            }
+            paging.observe(requireActivity()){
+                it
             }
-            mediaFilterList.observe(requireActivity()) {
-                _mediaFilterAdapter?.submitList(it)
-            }
-            countryFilterList.observe(requireActivity()) {
-                _countryFilterAdapter?.submitList(it)
-            }
-
         }
     }
 

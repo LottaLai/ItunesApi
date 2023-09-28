@@ -3,6 +3,9 @@ package com.lotta.itunesapi.ui.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.liveData
 import com.android.volley.VolleyError
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -11,6 +14,8 @@ import com.lotta.itunesapi.api.VolleyManager
 import com.lotta.itunesapi.configuration.DataManager
 import com.lotta.itunesapi.model.FilterModel
 import com.lotta.itunesapi.model.MediaModel
+import com.lotta.itunesapi.model.MediaRepo
+import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.system.measureTimeMillis
@@ -18,12 +23,15 @@ import kotlin.system.measureTimeMillis
 
 class HomeViewModel @Inject constructor(
     private val dataManager: DataManager,
-    private val volleyManager: VolleyManager
+    private val volleyManager: VolleyManager,
+    private val repo: MediaRepo
 ) : ViewModel() {
     var originList: MutableList<MediaModel> = mutableListOf()
     var songList = MutableLiveData<MutableList<MediaModel>>()
     var mediaFilterList = MutableLiveData<MutableList<FilterModel>>()
     var countryFilterList = MutableLiveData<MutableList<FilterModel>>()
+
+    val paging = repo.pager.liveData.cachedIn(viewModelScope)
 
     fun fetchAllDate(
         term: String = ""
