@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
@@ -21,8 +21,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var _homeViewModel: HomeViewModel? = null
-    private var _movieAdapter: MediaAdapter? = null
-    private var _musicAdapter: MediaAdapter? = null
+    private var _songAdapter: MediaAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,7 +39,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initAdapter()
         initObserve()
+    }
+
+    private fun initAdapter(){
+        _songAdapter = MediaAdapter()
+        binding.searchRecyclerView.apply {
+            adapter = _songAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun initViewModel() {
@@ -49,21 +57,16 @@ class HomeFragment : Fragment() {
             ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
                 .apply {
                     fetchAllDate(
-                        term = "jack+johnson"
+                        term = "joey+wong"
                     )
                 }
     }
 
     private fun initObserve() {
         _homeViewModel?.apply {
-            movieList.observe(requireActivity()) {
+            songList.observe(requireActivity()) {
                 if (!it.isNullOrEmpty()) {
-                    _movieAdapter?.submitList(it)
-                }
-            }
-            musicList.observe(requireActivity()) {
-                if (!it.isNullOrEmpty()) {
-                    _musicAdapter?.submitList(it)
+                    _songAdapter?.submitList(it)
                 }
             }
         }

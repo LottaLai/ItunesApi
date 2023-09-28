@@ -19,36 +19,29 @@ class HomeViewModel @Inject constructor(
     private val dataManager: DataManager,
     private val volleyManager: VolleyManager
 ) : ViewModel() {
-    var movieList = MutableLiveData<MutableList<MediaModel>>()
-    var musicList = MutableLiveData<MutableList<MediaModel>>()
+    var songList = MutableLiveData<MutableList<MediaModel>>()
 
     fun fetchAllDate(
         term: String = ""
     ) {
         viewModelScope.launch {
-            val movie = async {
-                fetchData(
-                    term = term,
-                    entity = "movie",
-                    onSuccess = {
-                        movieList.value = it
-                    })
-            }
             val music = async {
                 fetchData(
                     term = term,
-                    entity = "all",
-                    onSuccess = { musicList.value = it })
+                    media = "music",
+                    limit = 20,
+                    onSuccess = {
+                        songList.value = it
+                    })
             }
-
-            awaitAll(movie, music)
+            awaitAll(music)
         }
     }
 
     fun fetchData(
         term: String = "",
         limit: Int = 0,
-        entity: String = "",
+        media: String = "",
         offset: Int = 0,
         onSuccess: ((MutableList<MediaModel>) -> Unit)? = null,
         onFailure: ((String) -> Unit)? = null,
@@ -58,7 +51,7 @@ class HomeViewModel @Inject constructor(
                 .append(ApiContainer.endpoint())
                 .append("search?")
                 .append(if (term.isNotEmpty()) "&term=$term" else "")
-                .append(if (entity.isNotEmpty()) "&entity=$entity" else "")
+                .append(if (media.isNotEmpty()) "&media=$media" else "")
                 .append(if (limit > 0) "&limit=$limit" else "")
                 .append(if (offset > 0) "&offset=$offset" else "")
             val url = urlBuilder.toString()
