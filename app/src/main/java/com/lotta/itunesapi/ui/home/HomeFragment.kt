@@ -1,18 +1,22 @@
 package com.lotta.itunesapi.ui.home
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.EditText
+import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.lotta.itunesapi.R
 import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
 import com.lotta.itunesapi.model.MediaAdapter
 import javax.inject.Inject
+
 
 class HomeFragment : Fragment() {
     @Inject
@@ -41,6 +45,28 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         initObserve()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setHasOptionsMenu(true)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.actionbar_menu_layout, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_search -> {
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initAdapter(){
