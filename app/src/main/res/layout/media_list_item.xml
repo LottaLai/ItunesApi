@@ -13,11 +13,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/materialButton"
         app:layout_constraintStart_toEndOf="@+id/shapeableImageView"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,7 +27,6 @@
             android:id="@+id/artistTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -34,9 +35,21 @@
             android:id="@+id/songNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Content"
             android:textColor="#333333"
             android:textSize="16sp" />
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@android:color/darker_gray"
+        app:cornerRadius="50dp"
+        app:icon="@drawable/ic_baseline_bookmark_border_24"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

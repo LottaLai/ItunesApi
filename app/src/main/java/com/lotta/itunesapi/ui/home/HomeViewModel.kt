@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken
 import com.lotta.itunesapi.api.ApiContainer
 import com.lotta.itunesapi.api.VolleyManager
 import com.lotta.itunesapi.configuration.DataManager
+import com.lotta.itunesapi.model.FilterModel
 import com.lotta.itunesapi.model.MediaModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -20,6 +21,7 @@ class HomeViewModel @Inject constructor(
     private val volleyManager: VolleyManager
 ) : ViewModel() {
     var songList = MutableLiveData<MutableList<MediaModel>>()
+    var filterList = MutableLiveData<MutableList<FilterModel>>()
 
     fun fetchAllDate(
         term: String = ""
@@ -32,6 +34,13 @@ class HomeViewModel @Inject constructor(
                     limit = 20,
                     onSuccess = {
                         songList.value = it
+                        val kindList = it.map { it.kind }.distinct().toMutableList()
+                        val filterL = arrayListOf<FilterModel>()
+                        filterL.add(FilterModel("ALL", true))
+                        for (x in 0 until kindList.size){
+                            filterL.add(FilterModel(kindList[x], false))
+                        }
+                        filterList.value = filterL
                     })
             }
             awaitAll(music)

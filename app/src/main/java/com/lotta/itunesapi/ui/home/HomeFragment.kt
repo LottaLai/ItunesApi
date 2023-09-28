@@ -2,6 +2,7 @@ package com.lotta.itunesapi.ui.home
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
@@ -10,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
 import com.lotta.itunesapi.model.MediaAdapter
+import com.lotta.itunesapi.model.MediaFilterAdapter
 import javax.inject.Inject
 
 
@@ -26,6 +29,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private var _homeViewModel: HomeViewModel? = null
     private var _songAdapter: MediaAdapter? = null
+    private var _filterAdapter: MediaFilterAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -71,9 +75,14 @@ class HomeFragment : Fragment() {
 
     private fun initAdapter(){
         _songAdapter = MediaAdapter()
+        _filterAdapter = MediaFilterAdapter()
         binding.searchRecyclerView.apply {
             adapter = _songAdapter
             layoutManager = LinearLayoutManager(requireContext())
+        }
+        binding.filterRecyclerView.apply {
+            adapter = _filterAdapter
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL,false)
         }
     }
 
@@ -85,6 +94,7 @@ class HomeFragment : Fragment() {
                     fetchAllDate(
                         term = "joey+wong"
                     )
+
                 }
     }
 
@@ -93,6 +103,11 @@ class HomeFragment : Fragment() {
             songList.observe(requireActivity()) {
                 if (!it.isNullOrEmpty()) {
                     _songAdapter?.submitList(it)
+                }
+            }
+            filterList.observe(requireActivity()){
+                if(!it.isNullOrEmpty()){
+                    _filterAdapter?.submitList(it)
                 }
             }
         }
