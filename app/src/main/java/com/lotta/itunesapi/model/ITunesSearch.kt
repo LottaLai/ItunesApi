@@ -1,6 +1,6 @@
 package com.lotta.itunesapi.model
 
-data class ITunesSearch(
+data class SearchResult(
     val resultCount: Int,
-    val results: List<MediaModel>
+    val results: List<Track>
 )

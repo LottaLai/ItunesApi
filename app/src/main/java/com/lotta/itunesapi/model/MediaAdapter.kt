@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.MediaListItemBinding
 
-class MediaAdapter : ListAdapter<MediaModel, MediaAdapter.ViewHolder>(DiffCallback) {
+class MediaAdapter : ListAdapter<Track, MediaAdapter.ViewHolder>(DiffCallback) {
     private lateinit var binding: MediaListItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +42,7 @@ class MediaAdapter : ListAdapter<MediaModel, MediaAdapter.ViewHolder>(DiffCallba
         private val binding: MediaListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         var isUntie = false
-        fun bind(item: MediaModel) {
+        fun bind(item: Track) {
             binding.apply {
                 songNameTextView.text = item.trackName
                 artistTextView.text = item.artistName
@@ -63,12 +63,12 @@ class MediaAdapter : ListAdapter<MediaModel, MediaAdapter.ViewHolder>(DiffCallba
     }
 
 
-    companion object DiffCallback : DiffUtil.ItemCallback<MediaModel>() {
-        override fun areItemsTheSame(oldItem: MediaModel, newItem: MediaModel): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<Track>() {
+        override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
             return oldItem.collectionId == newItem.collectionId
         }
 
-        override fun areContentsTheSame(oldItem: MediaModel, newItem: MediaModel): Boolean {
+        override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
             return oldItem.collectionId == newItem.collectionId
         }
     }

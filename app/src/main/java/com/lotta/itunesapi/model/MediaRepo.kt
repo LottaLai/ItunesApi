@@ -2,18 +2,21 @@ package com.lotta.itunesapi.model
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.lotta.itunesapi.paging.MediaPagingSource
-import com.lotta.itunesapi.retrofitapi.ApiService
+import androidx.paging.liveData
+import com.lotta.itunesapi.paging.ITunesPagingSource
+import com.lotta.itunesapi.retrofitapi.ITunesApiService
 
-class MediaRepo (private val apiService: ApiService) {
-    val pager = Pager(
-        config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = { MediaPagingSource(apiService) }
-    )
-
-//    fun getUsers(): Single<List<MediaModel>> {
-//        return apiService.getSearchResults(1, 2)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//    }
+class MediaRepo(
+    private val apiService: ITunesApiService
+) {
+    fun getSearch(term: String) = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            enablePlaceholders = false,
+            prefetchDistance = 5
+        ),
+        pagingSourceFactory = {
+            ITunesPagingSource(apiService, term)
+        }
+    ).flow
 }

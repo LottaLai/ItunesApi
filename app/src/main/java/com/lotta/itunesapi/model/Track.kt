@@ -3,7 +3,7 @@ package com.lotta.itunesapi.model
 import androidx.room.Entity
 
 @Entity(tableName = "favorites", primaryKeys = ["artistId", "collectionId", "trackId"])
-data class MediaModel(
+data class Track(
     val artistId: Int,
     val artistName: String,
     val artistViewUrl: String,

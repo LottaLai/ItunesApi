@@ -6,13 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.lotta.itunesapi.model.MediaDao
-import com.lotta.itunesapi.model.MediaModel
-import com.lotta.itunesapi.model.MediaRepo
+import com.lotta.itunesapi.model.Track
 import com.lotta.itunesapi.util.DateConverter
 
 @Database(
     entities = [
-        MediaModel::class,
+        Track::class,
     ],
     version = 1,
     exportSchema = false
