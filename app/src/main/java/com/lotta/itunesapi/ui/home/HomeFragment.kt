@@ -96,11 +96,6 @@ class HomeFragment : Fragment() {
         ITunesApp.application.appComponent.inject(this)
         _homeViewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[HomeViewModel::class.java]
-                .apply {
-                    fetchAllDate(
-                        term = "joey+wong"
-                    )
-                }
     }
 
     private fun initObserve() {

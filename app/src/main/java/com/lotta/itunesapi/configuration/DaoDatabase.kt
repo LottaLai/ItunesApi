@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.lotta.itunesapi.model.FavoritesDao
+import com.lotta.itunesapi.model.MediaDao
 import com.lotta.itunesapi.model.MediaModel
+import com.lotta.itunesapi.model.MediaRepo
 import com.lotta.itunesapi.util.DateConverter
 
 @Database(
@@ -19,7 +20,7 @@ import com.lotta.itunesapi.util.DateConverter
 
 @TypeConverters(DateConverter::class)
 abstract class DaoDatabase : RoomDatabase() {
-    abstract fun favoritesDao(): FavoritesDao
+    abstract fun favoritesDao(): MediaDao
 
     companion object {
         private var INSTANCE: DaoDatabase? = null

@@ -6,6 +6,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
+
     @GET("items")
-    fun getMedias(@Query("page") page: Int, @Query("pageSize") pageSize: Int): List<MediaModel>
+    fun getSearchResults(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int)
+    : Single<List<MediaModel>>
 }

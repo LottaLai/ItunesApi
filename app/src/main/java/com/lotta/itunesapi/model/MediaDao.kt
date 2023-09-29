@@ -9,7 +9,7 @@ import androidx.room.Update
 import io.reactivex.rxjava3.core.Flowable
 
 @Dao
-interface FavoritesDao {
+interface MediaDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(model: MediaModel)
 

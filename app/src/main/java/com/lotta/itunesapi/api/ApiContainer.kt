@@ -1,33 +1,24 @@
 package com.lotta.itunesapi.api
 
 class ApiContainer {
-    enum class STATE{
+    enum class STATE {
         DEVELOPMENT,
         UAT,
         PRODUCTION
     }
 
-    companion object{
-        private const val development = "https://itunes.apple.com/"
-        private const val  uat = "https://itunes.apple.com/"
-        private const val  production = "https://itunes.apple.com/"
-
+    companion object {
         var state = STATE.DEVELOPMENT
 
-        fun endpoint() : String {
-            val stringBuilder = StringBuilder()
-            when(state){
-                STATE.DEVELOPMENT -> {
-                    stringBuilder.append(development)
-                }
-                STATE.UAT -> {
-                    stringBuilder.append(uat)
-                }
-                STATE.PRODUCTION -> {
-                    stringBuilder.append(production)
-                }
-            }
-            return stringBuilder.toString()
+        private const val development = "https://itunes.apple.com/"
+        private const val uat = "https://itunes.apple.com/"
+        private const val production = "https://itunes.apple.com/"
+
+
+        fun endpoint(): String = when (state) {
+            STATE.DEVELOPMENT -> { development }
+            STATE.UAT -> { uat }
+            STATE.PRODUCTION -> { production }
         }
     }
 }
