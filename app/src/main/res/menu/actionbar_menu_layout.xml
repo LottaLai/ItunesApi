@@ -10,8 +10,8 @@
         app:actionViewClass="android.widget.SearchView" />
 
     <item
-        android:id="@+id/action_favorite"
-        android:title="Favorite"
-        android:icon="@drawable/ic_baseline_favorite_24"
+        android:id="@+id/action_bookmark"
+        android:title="Bookmark"
+        android:icon="@drawable/ic_baseline_bookmark_border_24"
         app:showAsAction="ifRoom"/>
 </menu>

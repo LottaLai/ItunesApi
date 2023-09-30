@@ -4,7 +4,7 @@
     <string name="title_home">Home</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_search">Search</string>
-    
+
     <string-array name="media_filter_option">
         <item>all</item>
         <item>song</item>

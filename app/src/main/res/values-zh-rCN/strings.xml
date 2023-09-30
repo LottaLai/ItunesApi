@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iTunesAPI</string>
+    <string name="title_home">首页</string>
+    <string name="title_favorites">收藏夹</string>
+    <string name="title_search">搜索</string>
+
+    <string-array name="media_filter_option">
+        <item>全部</item>
+        <item>歌曲</item>
+        <item>剧情片</item>
+    </string-array>
+</resources>

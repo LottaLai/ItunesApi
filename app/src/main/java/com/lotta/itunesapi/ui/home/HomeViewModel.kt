@@ -1,57 +1,52 @@
 package com.lotta.itunesapi.ui.home
 
+import android.content.res.Configuration
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.liveData
+import androidx.paging.filter
 import com.lotta.itunesapi.configuration.DataManager
 import com.lotta.itunesapi.model.FilterModel
-import com.lotta.itunesapi.model.Track
 import com.lotta.itunesapi.model.MediaRepo
-import com.lotta.itunesapi.model.TrackAdapter
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.observeOn
-import kotlinx.coroutines.flow.subscribe
-import kotlinx.coroutines.launch
+import com.lotta.itunesapi.model.Track
+import java.security.AccessController.getContext
+import java.util.*
 import javax.inject.Inject
-
 
 class HomeViewModel @Inject constructor(
     private val dataManager: DataManager,
     private val repo: MediaRepo
 ) : ViewModel() {
-    var originList: MutableList<Track> = mutableListOf()
-    var songList = MutableLiveData<MutableList<Track>>()
     var mediaFilterList = MutableLiveData<MutableList<FilterModel>>()
-    var countryFilterList = MutableLiveData<MutableList<FilterModel>>()
-
-    fun getSearch(
-        term: String,
-        adapter: TrackAdapter
-    ){
-        viewModelScope.launch {
-            repo.getSearch(term).collectLatest {
-                adapter.submitData(it)
+    var termQuery = MutableLiveData("")
+    var tracks = termQuery.switchMap { queryString ->
+        repo.getSearchTracksResult(queryString).cachedIn(viewModelScope)
+    }
+    var filter = MutableLiveData<PagingData<Track>>()
+    fun filterTracks(filterString: String) {
+        filter.value = if (filterString == "all") {
+            tracks.value
+        }
+        else {
+            tracks.value?.filter { track ->
+                track.kind == filterString
             }
         }
     }
 
-    fun filterMediaList(
-        kind: String
-    ){
-        val oldList = originList
-        val filterList = if(kind == "ALL") oldList else oldList.filter { it -> it.kind == kind }
-        songList.value = filterList.toMutableList()
-    }
-
-    fun filterCountryList(
-        country: String
-    ){
-        val oldList = originList
-        val filterList = if(country == "ALL") oldList else oldList.filter { it -> it.country == country }
-        songList.value = filterList.toMutableList()
+    fun filterList(
+        enLanguage: Array<String>,
+        curLanguage: Array<String>
+    ) {
+        val filterList = mutableListOf<FilterModel>()
+        for (x in enLanguage.indices) {
+            val filterModel = FilterModel(enLanguage[x], curLanguage[x])
+            if(x == 0) filterModel.isClicked = true
+            filterList.add(filterModel)
+        }
+        mediaFilterList.value = filterList
     }
 }

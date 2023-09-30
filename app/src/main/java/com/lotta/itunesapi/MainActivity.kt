@@ -1,14 +1,10 @@
 package com.lotta.itunesapi
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationBarView
-import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

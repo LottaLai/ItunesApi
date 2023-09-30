@@ -9,14 +9,14 @@ import com.lotta.itunesapi.retrofitapi.ITunesApiService
 class MediaRepo(
     private val apiService: ITunesApiService
 ) {
-    fun getSearch(term: String) = Pager(
+    fun getSearchTracksResult(query: String) = Pager(
         config = PagingConfig(
             pageSize = 20,
             enablePlaceholders = false,
             prefetchDistance = 5
         ),
         pagingSourceFactory = {
-            ITunesPagingSource(apiService, term)
+            ITunesPagingSource(apiService, query)
         }
-    ).flow
+    ).liveData
 }

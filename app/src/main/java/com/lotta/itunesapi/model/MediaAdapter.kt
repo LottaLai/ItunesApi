@@ -29,6 +29,7 @@ class MediaAdapter : ListAdapter<Track, MediaAdapter.ViewHolder>(DiffCallback) {
         if(holder.isUntie) {
             holder.bind(getItem(holder.adapterPosition))
         }
+        currentList
     }
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {

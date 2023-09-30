@@ -3,15 +3,20 @@ package com.lotta.itunesapi.model
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.ItemSnapshotList
+import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.MediaListItemBinding
+import com.lotta.itunesapi.paging.ITunesPagingSource
 
-class TrackAdapter : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(TrackComparator) {
+class TrackAdapter : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(DiffCallback) {
     private lateinit var binding: MediaListItemBinding
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         binding = MediaListItemBinding.bind(
             LayoutInflater.from(parent.context).inflate(R.layout.media_list_item, parent, false)
@@ -40,7 +45,7 @@ class TrackAdapter : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(Trac
         }
     }
 
-    object TrackComparator : DiffUtil.ItemCallback<Track>() {
+    object DiffCallback : DiffUtil.ItemCallback<Track>() {
         override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
             return oldItem.trackName == newItem.trackName
         }
@@ -49,4 +54,5 @@ class TrackAdapter : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(Trac
             return oldItem == newItem
         }
     }
+
 }

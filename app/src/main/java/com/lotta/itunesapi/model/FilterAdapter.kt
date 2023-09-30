@@ -30,7 +30,7 @@ class FilterAdapter(
                 item.isClicked = true
                 notifyDataSetChanged()
             }
-            onButtonClickCallback?.invoke(item.name)
+            onButtonClickCallback?.invoke(item.key)
         }
     }
 
@@ -40,7 +40,7 @@ class FilterAdapter(
         val button = binding.materialButton
         fun bind(item: FilterModel) {
             binding.apply {
-                materialButton.text = item.name
+                materialButton.text = item.value
                 materialButton.setBackgroundColor(if(item.isClicked) Color.GREEN else Color.GRAY)
                 materialButton.isEnabled = !item.isClicked
             }
@@ -49,11 +49,11 @@ class FilterAdapter(
 
     companion object DiffCallback : DiffUtil.ItemCallback<FilterModel>() {
         override fun areItemsTheSame(oldItem: FilterModel, newItem: FilterModel): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.value == newItem.value
         }
 
         override fun areContentsTheSame(oldItem: FilterModel, newItem: FilterModel): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.value == newItem.value
         }
     }
 }
