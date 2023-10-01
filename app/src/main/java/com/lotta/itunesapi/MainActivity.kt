@@ -2,7 +2,10 @@ package com.lotta.itunesapi
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationBarView
 import com.lotta.itunesapi.databinding.ActivityMainBinding
@@ -10,6 +13,8 @@ import com.lotta.itunesapi.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +32,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNavController() {
         binding.navView.apply {
-            setupWithNavController(findNavController(R.id.nav_host_fragment_activity_main))
-            labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_SELECTED
+            navController = findNavController(R.id.nav_host_fragment_activity_main)
+            appBarConfiguration = AppBarConfiguration(navController.graph)
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            supportActionBar?.apply {
+                setDisplayShowTitleEnabled(false)
+            }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     companion object {

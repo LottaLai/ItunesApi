@@ -10,6 +10,9 @@ import io.reactivex.rxjava3.core.Flowable
 
 @Dao
 interface MediaDao {
+    @Query("SELECT * FROM favorites WHERE trackId = :trackId")
+    fun get(trackId: Int) : Track?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(model: Track)
 

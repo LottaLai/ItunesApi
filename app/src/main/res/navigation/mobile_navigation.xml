@@ -3,24 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeFragment"
         android:name="com.lotta.itunesapi.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_mediaDetailsFragment"
+            app:destination="@id/mediaDetailsFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_settings"
+        android:id="@+id/settingsFragment"
         android:name="com.lotta.itunesapi.ui.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/navigation_favorites"
+        android:id="@+id/favoritesFragment"
         android:name="com.lotta.itunesapi.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/mediaDetailsFragment"
+        android:name="com.lotta.itunesapi.ui.mediaDetails.MediaDetailsFragment"
+        android:label="fragment_media_details"
+        tools:layout="@layout/fragment_media_details">
+        <argument
+            android:name="track"
+            app:argType="com.lotta.itunesapi.model.Track" />
+    </fragment>
 
 </navigation>

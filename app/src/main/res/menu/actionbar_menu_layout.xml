@@ -6,12 +6,13 @@
         android:id="@+id/action_search"
         android:title="Search"
         android:icon="@drawable/ic_baseline_search_24"
-        app:showAsAction="ifRoom"
-        app:actionViewClass="android.widget.SearchView" />
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
-    <item
-        android:id="@+id/action_bookmark"
-        android:title="Bookmark"
-        android:icon="@drawable/ic_baseline_bookmark_border_24"
-        app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:id="@+id/action_bookmark"-->
+<!--        android:title="Bookmark"-->
+<!--        android:icon="@drawable/ic_baseline_bookmark_border_24"-->
+<!--        app:showAsAction="ifRoom"/>-->
 </menu>

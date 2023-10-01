@@ -26,6 +26,7 @@ class HomeViewModel @Inject constructor(
         repo.getSearchTracksResult(queryString).cachedIn(viewModelScope)
     }
     var filter = MutableLiveData<PagingData<Track>>()
+
     fun filterTracks(filterString: String) {
         filter.value = if (filterString == "all") {
             tracks.value

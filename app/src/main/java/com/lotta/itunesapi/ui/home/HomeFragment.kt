@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lotta.itunesapi.R
@@ -15,19 +15,20 @@ import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
 import com.lotta.itunesapi.model.FilterAdapter
+import com.lotta.itunesapi.model.Track
 import com.lotta.itunesapi.model.TrackAdapter
-import kotlinx.coroutines.flow.*
 import java.util.*
 import javax.inject.Inject
 
-
-open class HomeFragment : Fragment() {
+open class HomeFragment : Fragment(),
+    TrackAdapter.OnItemClickListener,
+    FilterAdapter.OnButtonClickListener {
     @Inject
     lateinit var viewModelFactory: DaggerViewModelFactory
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var _homeViewModel: HomeViewModel? = null
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var trackAdapter: TrackAdapter
     private var _mediaFilterAdapter: FilterAdapter? = null
 
@@ -49,16 +50,9 @@ open class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         initObserve()
+        setHasOptionsMenu(true)
     }
 
-    override fun onStart() {
-        super.onStart()
-        setHasOptionsMenu(true)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            setDisplayShowTitleEnabled(false)
-        }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actionbar_menu_layout, menu)
@@ -70,7 +64,7 @@ open class HomeFragment : Fragment() {
                 val regexPattern = Regex("[a-zA-Z ]+")
                 if (query != null && regexPattern.matches(query)) {
                     binding.searchRecyclerView.scrollToPosition(0)
-                    _homeViewModel?.termQuery?.value = query.replace(" ", "+")
+                    homeViewModel.termQuery.value = query.replace(" ", "+")
                     searchView.clearFocus()
                 }
                 return true
@@ -82,27 +76,13 @@ open class HomeFragment : Fragment() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_search -> {
-                return true
-            }
-            R.id.action_bookmark -> {
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun initAdapter() {
-        trackAdapter = TrackAdapter()
+        trackAdapter = TrackAdapter(this)
         binding.searchRecyclerView.apply {
             adapter = trackAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        _mediaFilterAdapter = FilterAdapter {
-            _homeViewModel?.filterTracks(it)
-        }
+        _mediaFilterAdapter = FilterAdapter(this)
         binding.mediaFilterRecyclerView.apply {
             adapter = _mediaFilterAdapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
@@ -111,7 +91,7 @@ open class HomeFragment : Fragment() {
 
     private fun initViewModel() {
         ITunesApp.application.appComponent.inject(this)
-        _homeViewModel =
+        homeViewModel =
             ViewModelProvider(
                 requireActivity(),
                 viewModelFactory
@@ -130,7 +110,7 @@ open class HomeFragment : Fragment() {
 
 
     private fun initObserve() {
-        _homeViewModel?.apply {
+        homeViewModel.apply {
             mediaFilterList.observe(viewLifecycleOwner) {
                 _mediaFilterAdapter?.submitList(it)
             }
@@ -142,6 +122,15 @@ open class HomeFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onItemClick(track: Track) {
+        val action = HomeFragmentDirections.actionNavigationHomeToMediaDetailsFragment(track)
+        findNavController().navigate(action)
+    }
+
+    override fun onButtonClick(item: String) {
+        homeViewModel.filterTracks(item)
     }
 
     override fun onDestroyView() {

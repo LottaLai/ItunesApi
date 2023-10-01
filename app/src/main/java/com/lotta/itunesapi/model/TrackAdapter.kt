@@ -13,7 +13,9 @@ import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.MediaListItemBinding
 import com.lotta.itunesapi.paging.ITunesPagingSource
 
-class TrackAdapter : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(DiffCallback) {
+class TrackAdapter(
+    private val onItemClickListener: OnItemClickListener
+) : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(DiffCallback) {
     private lateinit var binding: MediaListItemBinding
 
 
@@ -29,10 +31,37 @@ class TrackAdapter : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(Diff
         holder.bind(track)
     }
 
+    override fun onViewAttachedToWindow(holder: TrackViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        if(holder.isUntie) {
+            holder.bind(getItem(holder.adapterPosition))
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: TrackViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        if(!holder.isUntie) {
+            holder.untie()
+        }
+    }
 
     inner class TrackViewHolder(
         private val binding: MediaListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        var isUntie = false
+
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if(position != RecyclerView.NO_POSITION){
+                    val item = getItem(position)
+                    item?.let {
+                        onItemClickListener.onItemClick(it)
+                    }
+                }
+            }
+        }
+
         fun bind(track: Track?) {
             track?.let {
                 binding.apply {
@@ -43,6 +72,19 @@ class TrackAdapter : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(Diff
                 }
             }
         }
+
+        fun untie() {
+            binding.apply {
+                songNameTextView.text = ""
+                artistTextView.text = ""
+                Glide.with(root).clear(shapeableImageView)
+                isUntie = true
+            }
+        }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(track: Track)
     }
 
     object DiffCallback : DiffUtil.ItemCallback<Track>() {

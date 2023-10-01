@@ -10,7 +10,7 @@ import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.FilterListItemBinding
 
 class FilterAdapter(
-    private val onButtonClickCallback: ((String) -> Unit)? = null
+    private val onButtonClickListener: OnButtonClickListener
     ) : ListAdapter<FilterModel, FilterAdapter.ViewHolder>(DiffCallback) {
     private lateinit var binding: FilterListItemBinding
 
@@ -30,8 +30,12 @@ class FilterAdapter(
                 item.isClicked = true
                 notifyDataSetChanged()
             }
-            onButtonClickCallback?.invoke(item.key)
+            onButtonClickListener.onButtonClick(item.key)
         }
+    }
+
+    interface OnButtonClickListener{
+        fun onButtonClick(item: String)
     }
 
     class ViewHolder(

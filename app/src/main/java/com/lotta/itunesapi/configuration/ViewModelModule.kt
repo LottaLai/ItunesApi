@@ -4,11 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lotta.itunesapi.ui.favorites.FavoritesViewModel
 import com.lotta.itunesapi.ui.home.HomeViewModel
-import com.lotta.itunesapi.ui.search.SearchViewModel
+import com.lotta.itunesapi.ui.mediaDetails.MediaDetailsViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 import javax.inject.Inject
 import javax.inject.Provider
@@ -60,6 +59,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(SearchViewModel::class)
-    abstract fun bindSearchViewModel(model: SearchViewModel?): ViewModel?
+    @ViewModelKey(MediaDetailsViewModel::class)
+    abstract fun bindMediaDetailsViewModel(model: MediaDetailsViewModel?): ViewModel?
 }

@@ -46,7 +46,7 @@
         android:layout_height="40dp"
         android:backgroundTint="@android:color/darker_gray"
         app:cornerRadius="50dp"
-        app:icon="@drawable/ic_baseline_bookmark_border_24"
+        app:icon="@drawable/ic_baseline_keyboard_double_arrow_right_24"
         app:iconPadding="0dp"
         app:iconGravity="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
