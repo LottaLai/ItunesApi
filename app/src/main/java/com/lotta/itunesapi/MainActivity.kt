@@ -34,9 +34,22 @@ class MainActivity : AppCompatActivity() {
         binding.navView.apply {
             navController = findNavController(R.id.nav_host_fragment_activity_main)
             appBarConfiguration = AppBarConfiguration(navController.graph)
+
             setupActionBarWithNavController(navController, appBarConfiguration)
-            supportActionBar?.apply {
-                setDisplayShowTitleEnabled(false)
+            setupWithNavController(navController)
+
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                supportActionBar?.apply {
+                    when (destination.id) {
+                        R.id.favoritesFragment -> {
+                            setDisplayHomeAsUpEnabled(false)
+//                            setDisplayShowTitleEnabled(true)
+                        }
+                        else -> {
+//                            setDisplayShowTitleEnabled(true)
+                        }
+                    }
+                }
             }
         }
     }

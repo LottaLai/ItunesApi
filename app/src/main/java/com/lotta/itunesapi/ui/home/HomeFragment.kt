@@ -1,9 +1,9 @@
 package com.lotta.itunesapi.ui.home
 
-import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,16 +25,17 @@ open class HomeFragment : Fragment(),
     FilterAdapter.OnButtonClickListener {
     @Inject
     lateinit var viewModelFactory: DaggerViewModelFactory
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var trackAdapter: TrackAdapter
     private var _mediaFilterAdapter: FilterAdapter? = null
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initViewModel()
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -50,7 +51,6 @@ open class HomeFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         initObserve()
-        setHasOptionsMenu(true)
     }
 
 
