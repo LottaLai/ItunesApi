@@ -1,6 +1,5 @@
 package com.lotta.itunesapi.ui.home
 
-import android.content.res.Configuration
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
@@ -11,9 +10,7 @@ import androidx.paging.filter
 import com.lotta.itunesapi.configuration.DataManager
 import com.lotta.itunesapi.model.FilterModel
 import com.lotta.itunesapi.model.MediaRepo
-import com.lotta.itunesapi.model.Track
-import java.security.AccessController.getContext
-import java.util.*
+import com.lotta.itunesapi.room.Track
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(

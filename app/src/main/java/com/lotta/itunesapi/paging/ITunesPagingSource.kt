@@ -2,9 +2,8 @@ package com.lotta.itunesapi.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.lotta.itunesapi.model.Track
+import com.lotta.itunesapi.room.Track
 import com.lotta.itunesapi.retrofitapi.ITunesApiService
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class ITunesPagingSource(
     private val apiService: ITunesApiService,

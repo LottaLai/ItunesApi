@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lotta.itunesapi.configuration.DataManager
 import com.lotta.itunesapi.model.MediaRepo
-import com.lotta.itunesapi.model.Track
+import com.lotta.itunesapi.room.Track
 import javax.inject.Inject
 
 class FavoritesViewModel @Inject constructor(

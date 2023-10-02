@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.model
+package com.lotta.itunesapi.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.FilterListItemBinding
+import com.lotta.itunesapi.model.FilterModel
 
 class FilterAdapter(
     private val onButtonClickListener: OnButtonClickListener

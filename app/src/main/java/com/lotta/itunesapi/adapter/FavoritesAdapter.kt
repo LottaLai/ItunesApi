@@ -1,21 +1,18 @@
-package com.lotta.itunesapi.model
+package com.lotta.itunesapi.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.paging.ItemSnapshotList
-import androidx.paging.PagingData
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.MediaListItemBinding
-import com.lotta.itunesapi.paging.ITunesPagingSource
+import com.lotta.itunesapi.room.Track
 
-class TrackAdapter(
+class FavoritesAdapter(
     private val onItemClickListener: OnItemClickListener
-) : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(DiffCallback) {
+) : ListAdapter<Track, FavoritesAdapter.TrackViewHolder>(DiffCallback) {
     private lateinit var binding: MediaListItemBinding
 
 

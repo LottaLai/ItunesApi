@@ -15,7 +15,7 @@ import com.lotta.itunesapi.R
 import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentMediaDetailsBinding
-import com.lotta.itunesapi.model.Track
+import com.lotta.itunesapi.room.Track
 import javax.inject.Inject
 
 class MediaDetailsFragment : Fragment() {

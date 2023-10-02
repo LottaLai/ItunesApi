@@ -3,7 +3,6 @@ package com.lotta.itunesapi.ui.home
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,9 +13,9 @@ import com.lotta.itunesapi.R
 import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
-import com.lotta.itunesapi.model.FilterAdapter
-import com.lotta.itunesapi.model.Track
-import com.lotta.itunesapi.model.TrackAdapter
+import com.lotta.itunesapi.adapter.FilterAdapter
+import com.lotta.itunesapi.room.Track
+import com.lotta.itunesapi.adapter.TrackAdapter
 import java.util.*
 import javax.inject.Inject
 

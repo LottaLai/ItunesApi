@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.model
+package com.lotta.itunesapi.room
 
 import androidx.room.Dao
 import androidx.room.Delete

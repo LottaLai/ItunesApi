@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_media_details">
         <argument
             android:name="track"
-            app:argType="com.lotta.itunesapi.model.Track" />
+            app:argType="com.lotta.itunesapi.room.Track" />
     </fragment>
 
 </navigation>

@@ -1,6 +1,7 @@
 package com.lotta.itunesapi.configuration
 
-import com.lotta.itunesapi.model.Track
+import com.lotta.itunesapi.room.DaoDatabase
+import com.lotta.itunesapi.room.Track
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable

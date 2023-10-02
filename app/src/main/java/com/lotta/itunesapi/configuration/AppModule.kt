@@ -2,6 +2,7 @@ package com.lotta.itunesapi.configuration
 
 import android.app.Application
 import android.content.Context
+import com.lotta.itunesapi.room.DaoDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

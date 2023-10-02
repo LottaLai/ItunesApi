@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -12,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentFavoritesBinding
-import com.lotta.itunesapi.model.FavoritesAdapter
-import com.lotta.itunesapi.model.Track
+import com.lotta.itunesapi.adapter.FavoritesAdapter
+import com.lotta.itunesapi.room.Track
 import javax.inject.Inject
 
 
