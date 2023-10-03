@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.configuration
+package com.lotta.itunesapi.fake
 
 import com.lotta.itunesapi.port.DataManagerInterface
 import com.lotta.itunesapi.room.DaoDatabase
@@ -6,11 +6,8 @@ import com.lotta.itunesapi.room.Track
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import javax.inject.Inject
 
-class DataManager(
-    private val database: DaoDatabase
-) : DataManagerInterface {
+class FakeDataManager(private val database: DaoDatabase) : DataManagerInterface {
     override fun getBookmarkByID(trackId: Int): Track? {
         return database.favoritesDao().get(trackId)
     }
@@ -42,5 +39,4 @@ class DataManager(
     override fun getAllFavorite(): MutableList<Track> {
         return database.favoritesDao().getAll()
     }
-
 }

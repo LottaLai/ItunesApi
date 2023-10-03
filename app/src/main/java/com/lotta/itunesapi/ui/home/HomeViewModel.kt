@@ -10,12 +10,14 @@ import androidx.paging.filter
 import com.lotta.itunesapi.configuration.DataManager
 import com.lotta.itunesapi.model.FilterModel
 import com.lotta.itunesapi.model.MediaRepo
+import com.lotta.itunesapi.port.DataManagerInterface
+import com.lotta.itunesapi.port.MediaRepoInterface
 import com.lotta.itunesapi.room.Track
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val dataManager: DataManager,
-    private val repo: MediaRepo
+    private val dataManager: DataManagerInterface,
+    private val repo: MediaRepoInterface
 ) : ViewModel() {
     var mediaFilterList = MutableLiveData<MutableList<FilterModel>>()
     var termQuery = MutableLiveData("")

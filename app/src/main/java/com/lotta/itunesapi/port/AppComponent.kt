@@ -1,6 +1,9 @@
-package com.lotta.itunesapi.configuration
+package com.lotta.itunesapi.port
 
 import com.lotta.itunesapi.MainActivity
+import com.lotta.itunesapi.configuration.AppModule
+import com.lotta.itunesapi.configuration.NetworkModule
+import com.lotta.itunesapi.configuration.ViewModelModule
 import com.lotta.itunesapi.ui.favorites.FavoritesFragment
 import com.lotta.itunesapi.ui.home.HomeFragment
 import com.lotta.itunesapi.ui.mediaDetails.MediaDetailsFragment

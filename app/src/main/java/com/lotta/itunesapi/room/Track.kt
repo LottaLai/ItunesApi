@@ -16,7 +16,7 @@ data class Track(
     val collectionExplicitness: String?,
     val collectionId: Int,
     val collectionName: String?,
-    val collectionPrice: Double,
+    var collectionPrice: Double,
     val collectionViewUrl: String?,
     val country: String?,
     val currency: String?,

@@ -2,6 +2,8 @@ package com.lotta.itunesapi.configuration
 
 import android.app.Application
 import androidx.work.Configuration
+import com.lotta.itunesapi.port.AppComponent
+import com.lotta.itunesapi.port.DaggerAppComponent
 
 class ITunesApp: Application(), Configuration.Provider {
 

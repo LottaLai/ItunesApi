@@ -2,6 +2,7 @@ package com.lotta.itunesapi.configuration
 
 import com.lotta.itunesapi.api.ApiContainer
 import com.lotta.itunesapi.model.MediaRepo
+import com.lotta.itunesapi.port.MediaRepoInterface
 import com.lotta.itunesapi.retrofitapi.ITunesApiService
 import dagger.Module
 import dagger.Provides
@@ -28,5 +29,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMediaRepo(apiService: ITunesApiService): MediaRepo = MediaRepo(apiService)
+    fun provideMediaRepo(apiService: ITunesApiService): MediaRepoInterface = MediaRepo(apiService)
+
 }
