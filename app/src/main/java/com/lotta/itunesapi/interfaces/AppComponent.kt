@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.port
+package com.lotta.itunesapi.interfaces
 
 import com.lotta.itunesapi.MainActivity
 import com.lotta.itunesapi.configuration.AppModule

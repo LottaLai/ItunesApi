@@ -63,7 +63,8 @@ open class HomeFragment : Fragment(),
                 val regexPattern = Regex("[a-zA-Z ]+")
                 if (query != null && regexPattern.matches(query)) {
                     binding.searchRecyclerView.scrollToPosition(0)
-                    homeViewModel.termQuery.value = query.replace(" ", "+")
+                    val queryString = query.replace(" ", "+")
+                    homeViewModel.getSearchResult(queryString)
                     searchView.clearFocus()
                 }
                 return true
