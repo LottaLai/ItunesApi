@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.lotta.itunesapi.paging.ITunesPagingSource
-import com.lotta.itunesapi.port.MediaRepoInterface
+import com.lotta.itunesapi.interfaces.MediaRepoInterface
 import com.lotta.itunesapi.retrofitapi.ITunesApiService
 
 class FakeMediaRepo(
@@ -19,5 +19,5 @@ class FakeMediaRepo(
         pagingSourceFactory = {
             ITunesPagingSource(apiService, query)
         }
-    ).liveData
+    ).flow
 }

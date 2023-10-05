@@ -2,7 +2,7 @@ package com.lotta.itunesapi.configuration
 
 import com.lotta.itunesapi.api.ApiContainer
 import com.lotta.itunesapi.model.MediaRepo
-import com.lotta.itunesapi.port.MediaRepoInterface
+import com.lotta.itunesapi.interfaces.MediaRepoInterface
 import com.lotta.itunesapi.retrofitapi.ITunesApiService
 import dagger.Module
 import dagger.Provides

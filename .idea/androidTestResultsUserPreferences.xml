@@ -81,6 +81,21 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-861786241">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="QV71158G1T" value="120" />
+                  <entry key="Sony&#10; J9110" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xperia_1_API_29" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-687932331">
           <value>
             <AndroidTestResultsTableState>
@@ -127,6 +142,50 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_6_Pro_API_30" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1283903936">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="QV71158G1T" value="120" />
+                  <entry key="Sony&#10; J9110" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xperia_1_API_29" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1966992232">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="QV71158G1T" value="120" />
+                  <entry key="Sony&#10; J9110" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xperia_1_API_29" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="2093889066">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="QV71158G1T" value="120" />
+                  <entry key="Sony&#10; J9110" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>

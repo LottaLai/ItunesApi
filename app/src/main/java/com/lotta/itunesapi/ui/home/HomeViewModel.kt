@@ -7,12 +7,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.lotta.itunesapi.configuration.DataManager
 import com.lotta.itunesapi.model.FilterModel
-import com.lotta.itunesapi.model.MediaRepo
-import com.lotta.itunesapi.port.DataManagerInterface
-import com.lotta.itunesapi.port.MediaRepoInterface
+import com.lotta.itunesapi.interfaces.DataManagerInterface
+import com.lotta.itunesapi.interfaces.MediaRepoInterface
 import com.lotta.itunesapi.room.Track
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
@@ -20,11 +20,16 @@ class HomeViewModel @Inject constructor(
     private val repo: MediaRepoInterface
 ) : ViewModel() {
     var mediaFilterList = MutableLiveData<MutableList<FilterModel>>()
-    var termQuery = MutableLiveData("")
-    var tracks = termQuery.switchMap { queryString ->
-        repo.getSearchTracksResult(queryString).cachedIn(viewModelScope)
-    }
+    var tracks = MutableLiveData<PagingData<Track>>()
     var filter = MutableLiveData<PagingData<Track>>()
+
+    fun getSearchResult(termQuery: String){
+        viewModelScope.launch {
+            repo.getSearchTracksResult(termQuery).cachedIn(viewModelScope).collectLatest{ data ->
+                tracks.value = data
+            }
+        }
+    }
 
     fun filterTracks(filterString: String) {
         filter.value = if (filterString == "all") {
@@ -43,8 +48,7 @@ class HomeViewModel @Inject constructor(
     ) {
         val filterList = mutableListOf<FilterModel>()
         for (x in enLanguage.indices) {
-            val filterModel = FilterModel(enLanguage[x], curLanguage[x])
-            if(x == 0) filterModel.isClicked = true
+            val filterModel = FilterModel(enLanguage[x], curLanguage[x], x == 0)
             filterList.add(filterModel)
         }
         mediaFilterList.value = filterList
