@@ -17,6 +17,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 ```
+
 ```groovy
 dependencies {
     ...
@@ -36,16 +37,10 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.1'
     implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
 
-    //Gson
-    implementation 'com.google.code.gson:gson:2.9.0'
-
     //Glide
     implementation("com.github.bumptech.glide:glide:4.11.0") {
         exclude group: "com.android.support"
     }
-
-    //Paging3
-    implementation "androidx.paging:paging-runtime:3.2.1"
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -53,8 +48,12 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
     //Exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
 }
 ```
-##Paging
+# License
+Copyright © 2023 [Lotta Lai](https://github.com/LottaLai).<br />
