@@ -6,19 +6,17 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
-import com.lotta.itunesapi.getOrAwaitValue
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
 
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class MediaDaoTest {
     private lateinit var database: DaoDatabase
-    private lateinit var dao: MediaDao
+    private lateinit var dao: FavoritesDao
 
     @Before
     fun setup() {

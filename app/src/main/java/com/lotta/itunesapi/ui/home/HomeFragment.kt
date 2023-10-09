@@ -5,29 +5,26 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lotta.itunesapi.R
-import com.lotta.itunesapi.configuration.DaggerViewModelFactory
-import com.lotta.itunesapi.configuration.ITunesApp
-import com.lotta.itunesapi.databinding.FragmentHomeBinding
 import com.lotta.itunesapi.adapter.FilterAdapter
-import com.lotta.itunesapi.room.Track
 import com.lotta.itunesapi.adapter.TrackAdapter
+import com.lotta.itunesapi.databinding.FragmentHomeBinding
+import com.lotta.itunesapi.room.Track
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import javax.inject.Inject
 
-open class HomeFragment : Fragment(),
+@AndroidEntryPoint
+class HomeFragment : Fragment(),
     TrackAdapter.OnItemClickListener,
     FilterAdapter.OnButtonClickListener {
-    @Inject
-    lateinit var viewModelFactory: DaggerViewModelFactory
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModels ()
     private lateinit var trackAdapter: TrackAdapter
     private var _mediaFilterAdapter: FilterAdapter? = null
 
@@ -90,16 +87,16 @@ open class HomeFragment : Fragment(),
     }
 
     private fun initViewModel() {
-        ITunesApp.application.appComponent.inject(this)
-        homeViewModel =
-            ViewModelProvider(
-                requireActivity(),
-                viewModelFactory
-            )[HomeViewModel::class.java].apply {
-                val enLanguage = getEnglishMediaFilterArray()
-                val curLanguage = resources.getStringArray(R.array.media_filter_option)
-                filterList(enLanguage, curLanguage)
-            }
+//        ITunesApp.application.appComponent.inject(this)
+//        homeViewModel =
+//            ViewModelProvider(
+//                requireActivity(),
+//                viewModelFactory
+//            )[HomeViewModel::class.java].apply {
+//                val enLanguage = getEnglishMediaFilterArray()
+//                val curLanguage = resources.getStringArray(R.array.media_filter_option)
+//                filterList(enLanguage, curLanguage)
+//            }
     }
 
     private fun getEnglishMediaFilterArray(): Array<String> {

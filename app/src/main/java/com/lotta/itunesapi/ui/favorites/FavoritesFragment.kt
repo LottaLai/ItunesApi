@@ -5,25 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.lotta.itunesapi.configuration.DaggerViewModelFactory
 import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentFavoritesBinding
 import com.lotta.itunesapi.adapter.FavoritesAdapter
 import com.lotta.itunesapi.room.Track
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class FavoritesFragment : Fragment(),
     FavoritesAdapter.OnItemClickListener {
-    @Inject
-    lateinit var viewModelFactory: DaggerViewModelFactory
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var favoritesViewModel: FavoritesViewModel
+    private val favoritesViewModel: FavoritesViewModel by viewModels()
     private lateinit var favoritesAdapter: FavoritesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,12 +54,13 @@ class FavoritesFragment : Fragment(),
     }
 
     private fun initViewModel() {
-        ITunesApp.application.appComponent.inject(this)
-        favoritesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[FavoritesViewModel::class.java]
-                .apply {
-                    getAllFavorites()
-                }
+//        ITunesApp.application.appComponent.inject(this)
+//        favoritesViewModel =
+//            ViewModelProvider(requireActivity(), viewModelFactory)[FavoritesViewModel::class.java]
+//                .apply {
+//                    getAllFavorites()
+//                }
+        favoritesViewModel.getAllFavorites()
     }
 
     private fun initObserve() {

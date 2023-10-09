@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -42,6 +43,10 @@ android {
 
 }
 
+kapt {
+    correctErrorTypes true
+}
+
 dependencies {
     implementation 'androidx.test:core-ktx:1.5.0'
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -58,8 +63,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
     // Dagger
-    implementation 'com.google.dagger:dagger:2.45'
-    kapt 'com.google.dagger:dagger-compiler:2.45'
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
 
     // Room components
     implementation "androidx.room:room-ktx:2.5.2"
@@ -104,8 +109,6 @@ dependencies {
     testImplementation "com.google.truth:truth:1.0.1"
     testImplementation "org.mockito:mockito-core:5.5.0"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
-    testImplementation 'com.google.dagger:dagger:2.45'
-    kaptTest 'com.google.dagger:dagger-compiler:2.45'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
@@ -114,6 +117,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation "org.mockito:mockito-android:5.5.0"
     androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
-    androidTestImplementation 'com.google.dagger:dagger:2.45'
-    kaptAndroidTest 'com.google.dagger:dagger-compiler:2.45'
 }

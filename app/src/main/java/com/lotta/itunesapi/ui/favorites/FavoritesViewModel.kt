@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.lotta.itunesapi.interfaces.DataManagerInterface
 import com.lotta.itunesapi.interfaces.MediaRepoInterface
 import com.lotta.itunesapi.room.Track
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val dataManager: DataManagerInterface,
     private val repo: MediaRepoInterface
@@ -14,6 +16,6 @@ class FavoritesViewModel @Inject constructor(
     var favorites = MutableLiveData<List<Track>>()
 
     fun getAllFavorites(){
-        favorites.value = dataManager.getAllFavorite().value
+        favorites.value = dataManager.getAllFavorite()
     }
 }

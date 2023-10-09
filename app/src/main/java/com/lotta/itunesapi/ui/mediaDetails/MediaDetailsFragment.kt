@@ -5,31 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.PlayerControlView
 import com.lotta.itunesapi.R
-import com.lotta.itunesapi.configuration.DaggerViewModelFactory
-import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentMediaDetailsBinding
 import com.lotta.itunesapi.room.Track
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MediaDetailsFragment : Fragment() {
-    @Inject
-    lateinit var viewModelFactory: DaggerViewModelFactory
     private var _binding: FragmentMediaDetailsBinding? = null
     private val binding get() = _binding!!
 
     private val navArgs by navArgs<MediaDetailsFragmentArgs>()
     private var track: Track? = null
 
-    private lateinit var mediaDetailsViewModel: MediaDetailsViewModel
+    private val mediaDetailsViewModel: MediaDetailsViewModel by viewModels()
     private lateinit var exoPlayer: SimpleExoPlayer
-    private var mediaItem: MediaItem ?= null
+    private var mediaItem: MediaItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,21 +61,12 @@ class MediaDetailsFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        ITunesApp.application.appComponent.inject(this)
-        mediaDetailsViewModel =
-            ViewModelProvider(
-                requireActivity(),
-                viewModelFactory
-            )[MediaDetailsViewModel::class.java].apply {
-                track?.let {
-                    getBookmarked(it)
-                }
-            }
+        track?.let { mediaDetailsViewModel.getBookmarked(it) }
     }
 
-    private fun initView(){
+    private fun initView() {
         track?.let { it ->
-            if(it.kind.equals("song")) {
+            if (it.kind.equals("song")) {
                 Glide.with(binding.root).load(it.artworkUrl100).into(binding.thumbnailImageView)
                 binding.thumbnailImageView.visibility = View.VISIBLE
             }
@@ -92,7 +80,8 @@ class MediaDetailsFragment : Fragment() {
             binding.artistTextView.text = it.artistName
         }
 
-        val controlView = binding.playerView.findViewById<PlayerControlView>(com.google.android.exoplayer2.ui.R.id.exo_controller)
+        val controlView =
+            binding.playerView.findViewById<PlayerControlView>(com.google.android.exoplayer2.ui.R.id.exo_controller)
         controlView.showTimeoutMs = -1
         controlView.setShowMultiWindowTimeBar(true)
         controlView.show()
@@ -100,7 +89,7 @@ class MediaDetailsFragment : Fragment() {
 
     private fun initObserve() {
         mediaDetailsViewModel.apply {
-            isBookmarked.observe(viewLifecycleOwner){
+            isBookmarked.observe(viewLifecycleOwner) {
                 binding.btnBookmark.apply {
                     if (it) {
                         setIconResource(R.drawable.ic_baseline_bookmark_24)
@@ -112,7 +101,7 @@ class MediaDetailsFragment : Fragment() {
         }
     }
 
-    private fun initListener(){
+    private fun initListener() {
         binding.btnBookmark.setOnClickListener {
             track?.let { track ->
                 mediaDetailsViewModel.setBookmark(track)

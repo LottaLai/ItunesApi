@@ -11,10 +11,12 @@ import com.lotta.itunesapi.model.FilterModel
 import com.lotta.itunesapi.interfaces.DataManagerInterface
 import com.lotta.itunesapi.interfaces.MediaRepoInterface
 import com.lotta.itunesapi.room.Track
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class HomeViewModel @Inject constructor(
     private val dataManager: DataManagerInterface,
     private val repo: MediaRepoInterface

@@ -1,6 +1,5 @@
 package com.lotta.itunesapi.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,9 +8,9 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface MediaDao {
+interface FavoritesDao {
     @Query("SELECT * FROM favorites WHERE trackId = :trackId")
-    fun get(trackId: Int) : LiveData<Track>?
+    fun get(trackId: Int) : Track?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(model: Track)
@@ -23,7 +22,7 @@ interface MediaDao {
     fun delete(model: Track)
 
     @Query("SELECT * FROM favorites ORDER BY `releaseDate` DESC")
-    fun getAll(): LiveData<MutableList<Track>>
+    fun getAll(): MutableList<Track>
 
     @Query("DELETE FROM favorites")
     fun deleteAll()

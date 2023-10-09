@@ -9,7 +9,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationBarView
 import com.lotta.itunesapi.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -43,10 +45,8 @@ class MainActivity : AppCompatActivity() {
                     when (destination.id) {
                         R.id.favoritesFragment -> {
                             setDisplayHomeAsUpEnabled(false)
-//                            setDisplayShowTitleEnabled(true)
                         }
                         else -> {
-//                            setDisplayShowTitleEnabled(true)
                         }
                     }
                 }
