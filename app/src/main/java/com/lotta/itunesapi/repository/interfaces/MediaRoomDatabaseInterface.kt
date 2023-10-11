@@ -1,10 +1,10 @@
-package com.lotta.itunesapi.interfaces
+package com.lotta.itunesapi.repository.interfaces
 
-import com.lotta.itunesapi.room.Track
+import com.lotta.itunesapi.model.Track
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 
-interface DataManagerInterface {
+interface MediaRoomDatabaseInterface {
     fun getBookmarkByID(trackId: Int): Flowable<Track>
     fun insertFavorite(model: Track): Completable
     fun updateFavorite(model: Track): Completable

@@ -3,6 +3,7 @@ package com.lotta.itunesapi.room
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.lotta.itunesapi.model.Track
 import com.lotta.itunesapi.util.DateConverter
 
 @Database(

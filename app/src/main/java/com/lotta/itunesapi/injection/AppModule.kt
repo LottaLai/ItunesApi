@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.configuration
+package com.lotta.itunesapi.injection
 
 import android.content.Context
 import dagger.Module

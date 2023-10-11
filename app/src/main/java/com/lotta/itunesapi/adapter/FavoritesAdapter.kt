@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.MediaListItemBinding
-import com.lotta.itunesapi.room.Track
+import com.lotta.itunesapi.model.Track
 
 class FavoritesAdapter(
     private val onItemClickListener: OnItemClickListener

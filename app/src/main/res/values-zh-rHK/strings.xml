@@ -3,7 +3,6 @@
     <string name="app_name">iTunesAPI</string>
     <string name="title_home">首頁</string>
     <string name="title_favorites">收藏夾</string>
-    <string name="title_search">搜尋</string>
 
     <string-array name="media_filter_option">
         <item>全部</item>

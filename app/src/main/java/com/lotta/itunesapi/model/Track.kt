@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.room
+package com.lotta.itunesapi.model
 
 import android.os.Parcelable
 import android.os.Parcel

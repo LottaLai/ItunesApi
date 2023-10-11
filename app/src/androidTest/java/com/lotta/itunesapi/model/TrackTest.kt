@@ -1,7 +1,6 @@
 package com.lotta.itunesapi.model
 
 import com.google.common.truth.Truth.assertThat
-import com.lotta.itunesapi.room.Track
 import org.junit.Test
 
 class TrackTest {

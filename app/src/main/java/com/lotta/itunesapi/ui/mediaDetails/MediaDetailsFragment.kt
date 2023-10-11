@@ -13,7 +13,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.PlayerControlView
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.FragmentMediaDetailsBinding
-import com.lotta.itunesapi.room.Track
+import com.lotta.itunesapi.model.Track
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

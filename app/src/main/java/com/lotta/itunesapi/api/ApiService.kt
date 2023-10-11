@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.retrofitapi
+package com.lotta.itunesapi.api
 
 import com.lotta.itunesapi.model.SearchResult
 import io.reactivex.rxjava3.core.Single

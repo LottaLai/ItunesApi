@@ -13,7 +13,7 @@ import com.lotta.itunesapi.R
 import com.lotta.itunesapi.adapter.FilterAdapter
 import com.lotta.itunesapi.adapter.TrackAdapter
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
-import com.lotta.itunesapi.room.Track
+import com.lotta.itunesapi.model.Track
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -24,7 +24,7 @@ class HomeFragment : Fragment(),
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeViewModel: HomeViewModel by viewModels ()
+    private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var trackAdapter: TrackAdapter
     private var _mediaFilterAdapter: FilterAdapter? = null
 
@@ -87,16 +87,11 @@ class HomeFragment : Fragment(),
     }
 
     private fun initViewModel() {
-//        ITunesApp.application.appComponent.inject(this)
-//        homeViewModel =
-//            ViewModelProvider(
-//                requireActivity(),
-//                viewModelFactory
-//            )[HomeViewModel::class.java].apply {
-//                val enLanguage = getEnglishMediaFilterArray()
-//                val curLanguage = resources.getStringArray(R.array.media_filter_option)
-//                filterList(enLanguage, curLanguage)
-//            }
+        homeViewModel.apply {
+            val enLanguage = getEnglishMediaFilterArray()
+            val curLanguage = resources.getStringArray(R.array.media_filter_option)
+            filterList(enLanguage, curLanguage)
+        }
     }
 
     private fun getEnglishMediaFilterArray(): Array<String> {
@@ -112,10 +107,14 @@ class HomeFragment : Fragment(),
                 _mediaFilterAdapter?.submitList(it)
             }
             tracks.observe(viewLifecycleOwner) {
-                trackAdapter.submitData(lifecycle, it)
+                it?.let {
+                    trackAdapter.submitData(lifecycle, it)
+                }
             }
             filter.observe(viewLifecycleOwner) {
-                trackAdapter.submitData(lifecycle, it)
+                it?.let {
+                    trackAdapter.submitData(lifecycle, it)
+                }
             }
         }
 

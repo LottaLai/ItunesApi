@@ -1,18 +1,39 @@
-package com.lotta.itunesapi.configuration
+package com.lotta.itunesapi.repository
 
-import androidx.lifecycle.toLiveData
-import com.lotta.itunesapi.interfaces.DataManagerInterface
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import com.lotta.itunesapi.repository.interfaces.MediaRepositoryInterface
+import com.lotta.itunesapi.paging.ITunesPagingSource
+import com.lotta.itunesapi.api.ITunesApiService
+import com.lotta.itunesapi.model.Track
 import com.lotta.itunesapi.room.DaoDatabase
-import com.lotta.itunesapi.room.Track
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class DataManager @Inject constructor(
+class MediaRepository @Inject constructor(
+    private val apiService: ITunesApiService,
     private val database: DaoDatabase
-) : DataManagerInterface {
+) : MediaRepositoryInterface {
+    /**
+     * retrofit api implementation
+     */
+    override fun getSearchTracksResult(query: String) = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            enablePlaceholders = false,
+            prefetchDistance = 5
+        ),
+        pagingSourceFactory = {
+            ITunesPagingSource(apiService, query)
+        }
+    ).flow
+
+    /**
+     * room database implementation
+     */
     override fun getBookmarkByID(trackId: Int): Flowable<Track> {
         return database.favoritesDao().get(trackId)
     }
@@ -44,5 +65,4 @@ class DataManager @Inject constructor(
     override fun getAllFavorite(): Flowable<List<Track>> {
         return database.favoritesDao().getAll()
     }
-
 }

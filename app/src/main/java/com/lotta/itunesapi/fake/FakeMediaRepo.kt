@@ -2,14 +2,13 @@ package com.lotta.itunesapi.fake
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.liveData
 import com.lotta.itunesapi.paging.ITunesPagingSource
-import com.lotta.itunesapi.interfaces.MediaRepoInterface
-import com.lotta.itunesapi.retrofitapi.ITunesApiService
+import com.lotta.itunesapi.repository.interfaces.MediaAPIInterface
+import com.lotta.itunesapi.api.ITunesApiService
 
 class FakeMediaRepo(
     private val apiService: ITunesApiService
-): MediaRepoInterface {
+): MediaAPIInterface {
     override fun getSearchTracksResult(query: String) = Pager(
         config = PagingConfig(
             pageSize = 20,

@@ -1,9 +1,9 @@
-package com.lotta.itunesapi.interfaces
+package com.lotta.itunesapi.repository.interfaces
 
 import androidx.paging.PagingData
-import com.lotta.itunesapi.room.Track
+import com.lotta.itunesapi.model.Track
 import kotlinx.coroutines.flow.Flow
 
-interface MediaRepoInterface {
+interface MediaAPIInterface {
     fun getSearchTracksResult(query: String): Flow<PagingData<Track>>
 }

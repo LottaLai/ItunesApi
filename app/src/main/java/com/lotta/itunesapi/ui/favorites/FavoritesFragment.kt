@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.lotta.itunesapi.configuration.ITunesApp
 import com.lotta.itunesapi.databinding.FragmentFavoritesBinding
 import com.lotta.itunesapi.adapter.FavoritesAdapter
-import com.lotta.itunesapi.room.Track
+import com.lotta.itunesapi.model.Track
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
