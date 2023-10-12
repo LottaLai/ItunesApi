@@ -3,6 +3,7 @@ buildscript {
         kotlinVersion = '1.8.10'
         navigationVersion = '2.5.0'
         hiltVersion = '2.44'
+        lottieVersion = '6.1.0'
     }
 
     repositories {

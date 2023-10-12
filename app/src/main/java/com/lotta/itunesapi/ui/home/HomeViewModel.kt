@@ -9,8 +9,9 @@ import androidx.paging.filter
 import com.lotta.itunesapi.model.FilterModel
 import com.lotta.itunesapi.repository.interfaces.MediaRepositoryInterface
 import com.lotta.itunesapi.model.Track
+import com.lotta.itunesapi.ui.main.MainActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +25,10 @@ class HomeViewModel @Inject constructor(
 
     fun getSearchResult(termQuery: String){
         viewModelScope.launch {
+            MainActivity.isLoading.value = true
             repo.getSearchTracksResult(termQuery).cachedIn(viewModelScope).collectLatest{ data ->
                 tracks.value = data
+                MainActivity.isLoading.value = false
             }
         }
     }

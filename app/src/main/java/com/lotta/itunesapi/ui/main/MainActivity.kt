@@ -1,16 +1,23 @@
-package com.lotta.itunesapi
+package com.lotta.itunesapi.ui.main
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationBarView
+import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.ActivityMainBinding
+import com.lotta.itunesapi.ui.dialog.LoadingDialog
+import com.lotta.itunesapi.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -19,18 +26,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    @Inject
+    lateinit var loadingDialog: LoadingDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        mActivity = this
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initNavController()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mActivity = null
+        initObserve()
     }
 
     private fun initNavController() {
@@ -59,9 +64,17 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    companion object {
-        var mActivity: AppCompatActivity? = null
-            private set
+    private fun initObserve() {
+        isLoading.observe(this@MainActivity) { isLoading ->
+            if (isLoading) {
+                loadingDialog.show()
+            } else {
+                loadingDialog.dismiss()
+            }
+        }
+    }
 
+    companion object {
+        val isLoading = MutableLiveData(false)
     }
 }
