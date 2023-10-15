@@ -15,7 +15,6 @@ class TrackAdapter(
 ) : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(DiffCallback) {
     private lateinit var binding: MediaListItemBinding
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         binding = MediaListItemBinding.bind(
             LayoutInflater.from(parent.context).inflate(R.layout.media_list_item, parent, false)
@@ -86,7 +85,7 @@ class TrackAdapter(
 
     object DiffCallback : DiffUtil.ItemCallback<Track>() {
         override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
-            return oldItem.trackName == newItem.trackName
+            return oldItem.trackId == newItem.trackId
         }
 
         override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {

@@ -1,10 +1,8 @@
 package com.lotta.itunesapi.ui.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -14,10 +12,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.ActivityMainBinding
 import com.lotta.itunesapi.ui.dialog.LoadingDialog
-import com.lotta.itunesapi.ui.home.HomeViewModel
+import com.lotta.itunesapi.ui.home.HomeViewState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -65,8 +62,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObserve() {
-        isLoading.observe(this@MainActivity) { isLoading ->
-            if (isLoading) {
+        mainViewState.observe(this@MainActivity) { state ->
+            if (state.isLoading) {
                 loadingDialog.show()
             } else {
                 loadingDialog.dismiss()
@@ -75,6 +72,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        val isLoading = MutableLiveData(false)
+        val mainViewState = MutableLiveData(HomeViewState())
     }
 }

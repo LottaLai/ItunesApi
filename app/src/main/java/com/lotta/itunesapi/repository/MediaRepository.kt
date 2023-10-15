@@ -2,6 +2,7 @@ package com.lotta.itunesapi.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.rxjava3.flowable
 import com.lotta.itunesapi.repository.interfaces.MediaRepositoryInterface
 import com.lotta.itunesapi.paging.ITunesPagingSource
 import com.lotta.itunesapi.api.ITunesApiService
@@ -23,13 +24,14 @@ class MediaRepository @Inject constructor(
     override fun getSearchTracksResult(query: String) = Pager(
         config = PagingConfig(
             pageSize = 20,
+            maxSize = 200,
+            prefetchDistance = 5,
             enablePlaceholders = false,
-            prefetchDistance = 5
         ),
         pagingSourceFactory = {
             ITunesPagingSource(apiService, query)
         }
-    ).flow
+    ).flowable
 
     /**
      * room database implementation

@@ -14,8 +14,10 @@ import com.lotta.itunesapi.adapter.FilterAdapter
 import com.lotta.itunesapi.adapter.TrackAdapter
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
 import com.lotta.itunesapi.model.Track
+import com.lotta.itunesapi.ui.dialog.LoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(),
@@ -78,7 +80,9 @@ class HomeFragment : Fragment(),
         binding.searchRecyclerView.apply {
             adapter = trackAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
         }
+
         _mediaFilterAdapter = FilterAdapter(this)
         binding.mediaFilterRecyclerView.apply {
             adapter = _mediaFilterAdapter
@@ -106,12 +110,7 @@ class HomeFragment : Fragment(),
             mediaFilterList.observe(viewLifecycleOwner) {
                 _mediaFilterAdapter?.submitList(it)
             }
-            tracks.observe(viewLifecycleOwner) {
-                it?.let {
-                    trackAdapter.submitData(lifecycle, it)
-                }
-            }
-            filter.observe(viewLifecycleOwner) {
+            filterTracks.observe(viewLifecycleOwner) {
                 it?.let {
                     trackAdapter.submitData(lifecycle, it)
                 }
