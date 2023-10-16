@@ -11,6 +11,7 @@ import com.lotta.itunesapi.model.FilterModel
 import com.lotta.itunesapi.model.Track
 import com.lotta.itunesapi.repository.interfaces.MediaRepositoryInterface
 import com.lotta.itunesapi.ui.main.MainActivity
+import com.lotta.itunesapi.ui.main.MainViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -26,7 +27,7 @@ class HomeViewModel @Inject constructor(
 
 
     fun getSearchResult(termQuery: String) {
-        MainActivity.mainViewState.value = MainActivity.mainViewState.value?.copy(isLoading = true)
+        MainActivity.mainViewState.value = MainViewState.Loading
         repo.getSearchTracksResult(termQuery)
             .cachedIn(viewModelScope)
             .subscribeOn(Schedulers.io())
@@ -34,15 +35,9 @@ class HomeViewModel @Inject constructor(
             .subscribe({ pagingData ->
                 searchResult = pagingData
                 filterTracks()
-                MainActivity.mainViewState.value = MainActivity.mainViewState.value?.copy(
-                    isLoading = false,
-                    successMessage = "Search complete"
-                )
+                MainActivity.mainViewState.value = MainViewState.Success("Success")
             }, {
-                MainActivity.mainViewState.value = MainActivity.mainViewState.value?.copy(
-                    isLoading = false,
-                    errorMessage = it.toString()
-                )
+                MainActivity.mainViewState.value =  MainViewState.Failed("Fail")
             })
     }
 

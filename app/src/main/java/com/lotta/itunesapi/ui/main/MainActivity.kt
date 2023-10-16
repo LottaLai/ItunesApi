@@ -12,7 +12,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.ActivityMainBinding
 import com.lotta.itunesapi.ui.dialog.LoadingDialog
-import com.lotta.itunesapi.ui.home.HomeViewState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -62,16 +61,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObserve() {
-        mainViewState.observe(this@MainActivity) { state ->
-            if (state.isLoading) {
-                loadingDialog.show()
-            } else {
-                loadingDialog.dismiss()
+        mainViewState.observe(this) { state ->
+            when(state){
+                is MainViewState.Loading -> loadingDialog.show()
+                is MainViewState.Success<*> -> {
+                    loadingDialog.dismiss()
+                }
+                is MainViewState.Failed<*> -> {
+                    loadingDialog.dismiss()
+                }
             }
         }
     }
 
     companion object {
-        val mainViewState = MutableLiveData(HomeViewState())
+        val mainViewState : MutableLiveData<MainViewState> = MutableLiveData()
     }
 }
