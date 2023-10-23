@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.repository.interfaces
+package com.lotta.itunesapi.ui.home.repository.interfaces
 
 import androidx.paging.PagingData
 import com.lotta.itunesapi.model.Track

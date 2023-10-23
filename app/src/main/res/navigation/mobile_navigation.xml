@@ -19,7 +19,7 @@
         android:id="@+id/favoritesFragment"
         android:name="com.lotta.itunesapi.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" >
+        tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_favoritesFragment_to_mediaDetailsFragment"
             app:destination="@id/mediaDetailsFragment" />
@@ -34,5 +34,11 @@
             android:name="track"
             app:argType="com.lotta.itunesapi.model.Track" />
     </fragment>
+
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.lotta.itunesapi.ui.video.view.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
 
 </navigation>

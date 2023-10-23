@@ -3,7 +3,7 @@ package com.lotta.itunesapi.fake
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.lotta.itunesapi.paging.ITunesPagingSource
-import com.lotta.itunesapi.repository.interfaces.MediaAPIInterface
+import com.lotta.itunesapi.ui.home.repository.interfaces.MediaAPIInterface
 import com.lotta.itunesapi.api.ITunesApiService
 
 //class FakeMediaRepo(

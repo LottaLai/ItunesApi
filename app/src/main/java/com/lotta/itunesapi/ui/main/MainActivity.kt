@@ -42,14 +42,15 @@ class MainActivity : AppCompatActivity() {
             setupActionBarWithNavController(navController, appBarConfiguration)
             setupWithNavController(navController)
 
-            navController.addOnDestinationChangedListener { _, destination, _ ->
+            navController.addOnDestinationChangedListener { _, destination, argu ->
                 supportActionBar?.apply {
+                    setDisplayHomeAsUpEnabled(false)
                     when (destination.id) {
-                        R.id.favoritesFragment -> {
-                            setDisplayHomeAsUpEnabled(false)
-                        }
-                        else -> {
-                        }
+//                        R.id.homeFragment -> {
+//                            setDisplayHomeAsUpEnabled(true)
+//                        }
+//                        else -> {
+//                        }
                     }
                 }
             }
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 is MainViewState.Failed<*> -> {
                     loadingDialog.dismiss()
                 }
+                else -> { throw IllegalArgumentException("Invalid view state type")}
             }
         }
     }

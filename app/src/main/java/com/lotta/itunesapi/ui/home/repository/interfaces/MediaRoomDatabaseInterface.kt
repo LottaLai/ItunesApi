@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.repository.interfaces
+package com.lotta.itunesapi.ui.home.repository.interfaces
 
 import com.lotta.itunesapi.model.Track
 import io.reactivex.rxjava3.core.Completable

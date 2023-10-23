@@ -1,7 +1,7 @@
 package com.lotta.itunesapi.injection
 
-import com.lotta.itunesapi.repository.interfaces.MediaRepositoryInterface
-import com.lotta.itunesapi.repository.MediaRepository
+import com.lotta.itunesapi.ui.home.repository.interfaces.MediaRepositoryInterface
+import com.lotta.itunesapi.ui.home.repository.MediaRepository
 import com.lotta.itunesapi.api.ITunesApiService
 import com.lotta.itunesapi.room.DaoDatabase
 import dagger.Module

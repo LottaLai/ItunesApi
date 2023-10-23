@@ -2,7 +2,7 @@ package com.lotta.itunesapi.ui.mediaDetails
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lotta.itunesapi.repository.interfaces.MediaRepositoryInterface
+import com.lotta.itunesapi.ui.home.repository.interfaces.MediaRepositoryInterface
 import com.lotta.itunesapi.model.Track
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

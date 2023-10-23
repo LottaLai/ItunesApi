@@ -1,4 +1,4 @@
-package com.lotta.itunesapi.adapter
+package com.lotta.itunesapi.ui.home
 
 import android.graphics.Color
 import android.view.LayoutInflater

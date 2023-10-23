@@ -6,20 +6,22 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.filter
 import androidx.paging.rxjava3.cachedIn
-import androidx.room.util.copy
 import com.lotta.itunesapi.model.FilterModel
 import com.lotta.itunesapi.model.Track
-import com.lotta.itunesapi.repository.interfaces.MediaRepositoryInterface
+import com.lotta.itunesapi.ui.home.repository.interfaces.MediaRepositoryInterface
 import com.lotta.itunesapi.ui.main.MainActivity
 import com.lotta.itunesapi.ui.main.MainViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repo: MediaRepositoryInterface
+    private val repo: MediaRepositoryInterface,
+    private val disposable: CompositeDisposable,
 ) : ViewModel() {
     var mediaFilterList = MutableLiveData<MutableList<FilterModel>>()
     private lateinit var searchResult: PagingData<Track>
@@ -38,7 +40,7 @@ class HomeViewModel @Inject constructor(
                 MainActivity.mainViewState.value = MainViewState.Success("Success")
             }, {
                 MainActivity.mainViewState.value =  MainViewState.Failed("Fail")
-            })
+            }).addTo(disposable)
     }
 
     fun filterTracks(filterString: String? = "all") {

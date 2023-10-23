@@ -3,12 +3,12 @@
     <string name="app_name">iTunesAPI</string>
     <string name="title_home">Home</string>
     <string name="title_favorites">Favorites</string>
+    <string name="title_settings">Settings</string>
 
     <string-array name="media_filter_option">
         <item>all</item>
         <item>song</item>
         <item>feature-movie</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

@@ -1,19 +1,20 @@
-package com.lotta.itunesapi.adapter
+package com.lotta.itunesapi.ui.favorites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lotta.itunesapi.R
 import com.lotta.itunesapi.databinding.MediaListItemBinding
 import com.lotta.itunesapi.model.Track
 
-class TrackAdapter(
+class FavoritesAdapter(
     private val onItemClickListener: OnItemClickListener
-) : PagingDataAdapter<Track, TrackAdapter.TrackViewHolder>(DiffCallback) {
+) : ListAdapter<Track, FavoritesAdapter.TrackViewHolder>(DiffCallback) {
     private lateinit var binding: MediaListItemBinding
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         binding = MediaListItemBinding.bind(
@@ -85,7 +86,7 @@ class TrackAdapter(
 
     object DiffCallback : DiffUtil.ItemCallback<Track>() {
         override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
-            return oldItem.trackId == newItem.trackId
+            return oldItem.trackName == newItem.trackName
         }
 
         override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {

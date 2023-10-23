@@ -1,9 +1,9 @@
-package com.lotta.itunesapi.repository
+package com.lotta.itunesapi.ui.home.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.rxjava3.flowable
-import com.lotta.itunesapi.repository.interfaces.MediaRepositoryInterface
+import com.lotta.itunesapi.ui.home.repository.interfaces.MediaRepositoryInterface
 import com.lotta.itunesapi.paging.ITunesPagingSource
 import com.lotta.itunesapi.api.ITunesApiService
 import com.lotta.itunesapi.model.Track

@@ -6,6 +6,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Singleton
 
 @Module
@@ -20,4 +22,7 @@ object AppModule {
     @Singleton
     fun provideContext(@ApplicationContext context: Context): Context = context
 
+    @Provides
+    @Singleton
+    fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 }

@@ -10,14 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lotta.itunesapi.R
-import com.lotta.itunesapi.adapter.FilterAdapter
-import com.lotta.itunesapi.adapter.TrackAdapter
 import com.lotta.itunesapi.databinding.FragmentHomeBinding
 import com.lotta.itunesapi.model.Track
-import com.lotta.itunesapi.ui.dialog.LoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(),
@@ -32,7 +28,6 @@ class HomeFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViewModel()
         setHasOptionsMenu(true)
     }
 
@@ -40,13 +35,14 @@ class HomeFragment : Fragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    ): View = FragmentHomeBinding.inflate(inflater, container, false).apply {
+        _binding = this
+    }.root
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewModel()
         initAdapter()
         initObserve()
     }

@@ -9,13 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lotta.itunesapi.databinding.FragmentFavoritesBinding
-import com.lotta.itunesapi.adapter.FavoritesAdapter
 import com.lotta.itunesapi.model.Track
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoritesFragment : Fragment(),
-    FavoritesAdapter.OnItemClickListener {
+class FavoritesFragment : Fragment(), FavoritesAdapter.OnItemClickListener {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
